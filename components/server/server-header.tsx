@@ -20,13 +20,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useModal } from "@/hooks/use-modal-store";
+import { cn } from "@/lib/utils";
 
 interface ServerHeaderProps {
   server: ServerWithMembersWithProfiles;
   role?: MemberRole;
+  isOnMobile: boolean;
 }
 
-export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
+export const ServerHeader = ({
+  server,
+  role,
+  isOnMobile,
+}: ServerHeaderProps) => {
   const { onOpen } = useModal();
 
   const isAdmin = role === MemberRole.ADMIN;
@@ -37,7 +43,9 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
       <DropdownMenuTrigger className="focus:outline-none" asChild>
         <button className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition">
           {server.name}
-          <ChevronDown className="h-5 w-5 ml-auto" />
+          <ChevronDown
+            className={cn("h-5 w-5 ml-auto", isOnMobile && "hidden")}
+          />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 text-xs text-black dark:text-neutral-400 space-y-[2px]">
